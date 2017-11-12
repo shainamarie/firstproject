@@ -1,0 +1,36 @@
+{% extends "template.html "%}
+{% block content %}
+<style>
+input[type =submit]{
+border:2px solid transparent;
+background:darkslategray;
+color:white;
+font-size:16px;
+line-height:25px;
+padding:10px 0;
+border-radius:3px;
+}
+.w3-btn{
+border:2px solid transparent;
+background:firebrick;
+color:white;
+font-size:16px;
+width:80px;
+line-height:10px;
+padding:5px 0;
+border-radius:3px;
+}
+</style>
+
+
+
+    </p><a href = "{{ url_for('login') }}" ><button class="w3-btn">Log In</button></a>
+    <br/>
+    <br/>
+    <li><a style="font-size:150%" href="/hello"><button class="w3-btn">List of Students</button></a></li>
+    <br/>
+    <br/>
+    <li><a style="font-size:150%" href="/addform"><button class="w3-btn">Add Student</button></a></li>
+
+    </p>
+{% endblock %}

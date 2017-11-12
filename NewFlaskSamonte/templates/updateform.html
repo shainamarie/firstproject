@@ -1,0 +1,74 @@
+{% extends "template.html" %}
+{% block content %}
+<style>
+body{
+font-family:Arial;
+background:white;
+}
+
+.login{
+background:gray;
+border:2px;
+border-radius:5px;
+padding:2px;
+width:300px;
+margin:auto;
+margin-top:30px;
+height:580px;
+}
+form{
+width:240px;
+text-align:center;
+border:2px;
+border-radius:3px;
+}
+input{
+width:240px;
+text-align:center;
+background:#ecfof1;
+border:2px solid transparent;
+border-radius:3px;
+font-size:16px;
+font-weight:200;
+padding:10px 0;
+transition:border .5s;
+}
+input[type =submit]{
+border:2px solid transparent;
+background:darkslategray;
+color:white;
+font-size:16px;
+line-height:25px;
+padding:10px 0;
+border-radius:3px;
+}
+</style>
+<div class="login">
+<center><form action="/updateprofile" method="get">
+         <h2>Update Information</h2>
+         <dl>
+
+             <dt><strong>ID:</strong><br>
+         <input type = "text" name = "id" value="{{ person[0] }}" /></br>
+
+             <dt><strong>First Name:</strong><br>
+         <input type = "text" name = "fname" value="{{ person[1] }}" /></br>
+
+             <dt><strong>Last Name:</strong><br>
+         <input type = "text" name = "lname" value="{{ person[2] }}" /></br>
+
+             <dt><strong>ID No.:</strong><br>
+         <input type = "integer" name = "idno" value="{{ person[3] }}" /></br>
+
+             <dt><strong>Email:</strong><br>
+         <input type = "text" name = "email" value="{{ person[4] }}" /></br>
+
+             <dt><strong>Password:</strong><br>
+         <input type = "password" name = "password" value="{{ person[5] }}" /></br>
+         </dl>
+        <a href = "{{ url_for('updateprofile') }}" methods="post">
+              <input type =submit value = "submit" /></a>
+      </form></center>
+</div>
+
+{% endblock %}

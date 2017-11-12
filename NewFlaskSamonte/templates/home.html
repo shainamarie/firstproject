@@ -1,0 +1,28 @@
+{% extends "template.html" %}
+{% block content %}
+<style>
+.w3-btn{
+border:2px solid transparent;
+background:darkslategray;
+color:white;
+font-size:16px;
+width:65px;
+line-height:15px;
+padding:5px 0;
+border-radius:3px;
+}
+</style>
+    <div class="jumbo">
+        <h2 style="font-size:250%">Welcome to Student's Profile</h2>
+        <br/>
+        <p style="font-size:130%">This website stores the information of the students. You can add, update and delete the information of the students. Log in is required to do the operations.
+        <br/>
+        <img style="position:absolute; TOP:390px; LEFT:200px" src="{{ url_for('static', filename= 'profilefinsl.png') }}" width="200" height="200" alt="Student ID">
+        <center><img style="" src="{{ url_for('static', filename= 'id-card-512.png') }}" width="200" height="200" alt="Student ID"></center>
+        <img style="position:absolute; TOP:390px; RIGHT:200px" src="{{ url_for('static', filename= 'download.png') }}" width="200" height="200" alt="Student ID">
+        <br/>
+        <br/>
+        </p> <center><a href = "{{ url_for('login') }}" >
+        <button class="w3-btn">Log In</button></a></center>
+    </div>
+{% endblock %}

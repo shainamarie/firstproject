@@ -1,0 +1,79 @@
+{% extends "template.html" %}
+{% block content %}
+<style>
+body{
+font-family:Arial;
+background:white;
+}
+
+.login{
+background:gray;
+border:2px;
+border-radius:5px;
+padding:2px;
+width:300px;
+margin:auto;
+margin-top:50px;
+height:300px;
+}
+form{
+width:240px;
+text-align:center;
+border:2px;
+border-radius:3px;
+}
+input{
+width:240px;
+text-align:center;
+background:#ecfof1;
+border:2px solid transparent;
+border-radius:3px;
+font-size:16px;
+font-weight:200;
+padding:10px 0;
+transition:border .5s;
+}
+input[type =submit]{
+border:2px solid transparent;
+background:darkslategray;
+color:white;
+font-size:16px;
+line-height:25px;
+padding:10px 0;
+border-radius:3px;
+}
+</style>
+<body>
+    <div class="login">
+    <center>
+    <h2>Login</h2>
+
+    <form action="" method=post>
+
+            <br/>
+            <dt>Username:
+                <dd><input type=text name=username placeholder="Username" value="{{ request.form.username }}">
+            <dt>Password:
+                <dd><input type=password name=password placeholder="Password">
+            <br/>
+            <br/>
+
+            <p><input type=submit value=Login>
+    </form>
+        <br/>
+        <br/>
+    {% for message in get_flashed_messages() %}
+            <div class=flash>
+                {{ message }}
+            </div>
+    {% endfor %}
+    </div>
+    </center>
+ </body>
+<center>
+<br/>
+{% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+{% endif %}
+</center>
+{% endblock %}

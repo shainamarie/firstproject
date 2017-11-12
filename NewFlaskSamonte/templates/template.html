@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+.nav{
+postion:absolute;
+left:0%;
+right:0%;
+width:100%;
+background:black;
+margin:0;
+text-align:center;
+border-radius: 5px;
+}
+.nav ul{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+.nav ul li{
+display:inline-block;
+padding:20px;
+cursor:pointer;
+}
+.nav ul li a{
+font-family: 'Oswald', sans-serif;
+font-size: 1.5em;
+text-decoration:none;
+line-height: 40px;
+color:white;
+display:block;
+}
+.nav ul li a:hover{
+color:black;
+}
+.nav ul li:hover{
+background:white;
+color:black;
+transition:all .3s;
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Student's Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+</head>
+    <body>
+        <header>
+        <center><strong><a style="font-size:300%; color:#696969; background-color: white" class="brand" href="/">Student's Information</a></strong></center>
+
+            <div class="nav">
+                      <ul>
+                        <li><a style="font-size:150%" href="/">Home</a></li>
+                        <li><a style="font-size:150%" href="/hello">List of Students</a></li>
+                        <li><a style="font-size:150%" href="/addform">Add Student</a></li>
+                      </ul>
+            </div>
+        </header>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
