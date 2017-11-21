@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+{% block content %}
+
+<center>
+<h2>These are the following result</h2>
+<table class="table table-striped">
+        <tr>
+            <th>ID No:</th>
+            <th>First Name:</th>
+            <th>Middle Name:</th>
+            <th>Last Name:</th>
+            <th>Gender:</th>
+            <th>Description:</th>
+            <th>Course:</th>
+            <th>Year:</th>
+            <th>College:</th>
+
+        </tr>
+
+         {% for row in coffee %}
+            <tr>
+               <td>{{row[0]}}</td>
+               <td>{{row[5]}}</td>
+               <td>{{row[6]}}</td>
+               <td>{{row[4]}}</td>
+               <td>{{row[7]}}</td>
+               <td>{{row[2]}}</td>
+               <td>{{row[1]}}</td>
+               <td>{{row[8]}}</td>
+               <td>{{row[3]}}</td>
+            </tr>
+         {% endfor %}
+</table>
+</center>
+
+{% endblock %}
