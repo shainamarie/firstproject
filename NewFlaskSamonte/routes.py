@@ -42,8 +42,8 @@ def logout():
 @login_required
 def hello():
     g.db = connect_db()
-    cur = g.db.execute('select id, fname, lname, idno, email from stud')
-    students = [dict(id=row[0], fname=row[1], lname=row[2],  idno=row[3],  email=row[4]) for row in cur.fetchall()]
+    cur = g.db.execute('select id, fname, mname, lname, gender, course, year from stud')
+    students = [dict(id=row[0], fname=row[1], mname=row[2], lname=row[3], gender=row[4], course=row[5], year=row[6] ) for row in cur.fetchall()]
     g.db.commit()
     g.db.close()
     return render_template('hello.html', students=students)
@@ -55,17 +55,10 @@ def hello():
 def delete(item_id):
     g.db = connect_db()
     cur = g.db.execute('''delete from stud where id= ?''', (item_id,))
-    students = [dict(id=row[0], fname=row[1], lname=row[2], idno=row[3], email=row[4]) for row in cur.fetchall()]
+    students = [dict(id=row[0], fname=row[1], mname=row[2], lname=row[3], gender=row[4], course=row[5], year=row[6] ) for row in cur.fetchall()]
     g.db.commit()
     g.db.close()
     return render_template('redirect.html', students=students)
-
-
-
-
-
-
-
 
 
 @app.route('/addform', methods=['GET', 'POST'])
@@ -75,20 +68,21 @@ def addform():
 
 
 
-
 @app.route('/adding', methods=['POST'])
 @login_required
 def adding():
     if request.method == 'POST':
         try:
+            id = request.form['id']
             fname = request.form['fname']
+            mname = request.form['mname']
             lname = request.form['lname']
-            idno = request.form['idno']
-            email = request.form['email']
-            password = request.form['password']
+            gender = request.form['gender']
+            course = request.form['course']
+            year = request.form['year']
 
             with sqlite3.connect(app.config['DATABASE']) as g.db:
-                cur = g.db.execute("INSERT INTO stud(fname, lname, idno, email, password) VALUES (?, ?, ?, ?, ?)", (fname, lname, idno, email, password))
+                cur = g.db.execute("INSERT INTO stud(id, fname, mname, lname, gender, course, year) VALUES (?, ?, ?, ?, ?, ?, ?)", (id, fname, mname, lname, gender, course, year))
                 g.db.commit()
                 g.db.close()
                 msg = "Record successfully added"
@@ -118,7 +112,7 @@ def login():
 def editprofile():
     id = request.args.get('id')
     g.db = connect_db()
-    cur = g.db.execute('''select id, fname, lname, idno, email, password from stud where id=?''', [id])
+    cur = g.db.execute('''select id, fname, mname, lname, gender, course, year from stud where id=?''', [id])
     rv = cur.fetchall()
     cur.close()
     person = rv[0]
@@ -130,17 +124,47 @@ def editprofile():
 def updateprofile():
     id = request.args.get('id')
     fname = request.args.get('fname')
+    mname = request.args.get('mname')
     lname = request.args.get('lname')
-    idno = request.args.get('idno')
-    email = request.args.get('email')
-    password = request.args.get('password')
+    gender = request.args.get('gender')
+    course = request.args.get('course')
+    year = request.args.get('year')
     g.db = connect_db()
-    sql = "update stud set fname=?, lname=?, idno=?, email=?, password=? where id=?"
-    g.db.execute(sql, [fname, lname, idno, email, password, id])
+    sql = "update stud set fname=?, mname=?, lname=?, gender=?, course=?, year=? where id=?"
+    g.db.execute(sql, [fname, mname, lname, gender, course, year, id])
     g.db.commit()
     g.db.close()
-    return render_template('home.html')
+    return render_template('redirect.html')
 
+@app.route('/searchpage')
+def searchpage():
+    return render_template('search.html')
+
+@app.route('/studentsearch', methods=['POST', 'GET'])
+def studentsearch():
+    if request.method == "POST":
+        try:
+            searchinfo = request.form['info']
+
+            g.db = connect_db()
+            cur = g.db.execute(
+                "SELECT * FROM infoComplete where id = ? or COURSE_ID = ? or COLLEGE = ? or DESCRIPTION = ? or fname = ? or mname = ? or lname = ? or gender = ? or year = ?",
+                (searchinfo, searchinfo, searchinfo, searchinfo, searchinfo, searchinfo, searchinfo, searchinfo,searchinfo))
+            print ("1")
+            coffee = cur.fetchall()
+            msg = "existed"
+            '''for row in cur.fetchall():
+                coffee = row
+                print coffee
+                msg = "existed"'''
+
+        except:
+            msg = ("error")
+        finally:
+            print ("coffee")
+            print (" copied")
+            print ("the message: " + msg)
+            return render_template("result.html", msg=msg, coffee=coffee)
 
 if __name__ == '__main__':
     app.run(debug=True)
