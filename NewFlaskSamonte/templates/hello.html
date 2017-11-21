@@ -80,34 +80,34 @@ position:absolute;
 }
 </style>
     <h2>Welcome! You are logged in</h2>
-    <br/>
-    <br/>
-
-
-        <input type="text" name="search" placeholder="Search...">
-        <input type="submit" name="submit" value="Search">
-
 <br/>
     <br/>
     <a href = "/logout" ><button class="w3-btn">Log Out</button></a>
+    <a href = "/searchpage" ><button class="w3-btn">Search</button></a>
     <br/><br/>
     <h3>Student's Profile:</h3>
     <table class="table table-striped">
         <tr>
-            <th>First Name:</th>
-            <th>Last Name:</th>
             <th>ID No:</th>
-            <th>Email:</th>
+            <th>First Name:</th>
+            <th>Middle Name:</th>
+            <th>Last Name:</th>
+            <th>Gender:</th>
+            <th>Course:</th>
+            <th>Year:</th>
             <th>Action:</th>
             <th>Action:</th>
         </tr>
         {% for item in students %}
             <tr>
-
+                <td>{{ item.id }}</td>
                 <td>{{ item.fname }}</td>
+                <td>{{ item.mname }}</td>
                 <td>{{ item.lname }}</td>
-                <td>{{ item.idno }}</td>
-                <td>{{ item.email }}</td>
+                <td>{{ item.gender }}</td>
+                <td>{{ item.course }}</td>
+                <td>{{ item.year }}</td>
+
                 <td><a href = "{{ url_for('delete', item_id=item.id) }}" methods="get , delete">
                     <button class="button">Delete</button></input></a>
                 </td>
